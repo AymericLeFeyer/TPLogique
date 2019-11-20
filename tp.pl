@@ -57,6 +57,12 @@ del_seance(M, P, G, S, C, I):-
     seance(M, P, G, S, C, I),
     retract(seance(M, P, G, S, C, I)).
 
+join_eleve_groupe(E, G):-
+    E c un id {eleve}
+    G c un id aussi {groupe}
+
+
+
 
 
 
