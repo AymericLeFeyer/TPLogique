@@ -1,17 +1,9 @@
-professeur(nom, prenom, discipline, identifiant)
-eleve(nom, prenom, niveau, identifiant)
-salle(nom, capacite, type, identifiant)
-matiere(nom, discipline, type, niveau, identifiant)
-groupe(nom, niveau, liste-eleves, identifiant)
-seance(matiere, prof, groupe, salle, creneau, identifiant).
+:-dynamic professeur/4.
 
-add_professeur(nom, prenom, discipline, identifiant):-
-    \+ professeur(nom, prenom, discipline, identifiant),
-    assert(professeur(nom, prenom, discipline, identifiant)).
+professeur(nom, prenom, discipline, identifiant).
 
 
-
-
-
-
-
+add_professeur(X, Y, Z, A):-professeur(X, Y, Z, A),!, fail.
+add_professeur(_, _, _, A):-professeur(X, Y, Z, A),!, fail.
+add_professeur(X, Y, Z, A):-assert((professeur(X, Y, Z, A))).
+del_professeur(X, Y, Z, A):-retract((professeur(X, Y, Z, A))).
