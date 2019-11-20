@@ -14,6 +14,7 @@ seance(matiere, prof, groupe, salle, creneau, identifiant).
 
 add_professeur(N, P, D, I):-
     \+ professeur(N, P, D, I),
+    \+ professeur(_, _, _, I),
     assert(professeur(N, P, D, I)).
 
 del_professeur(N, P, D, I):-
@@ -22,6 +23,7 @@ del_professeur(N, P, D, I):-
 
 add_eleve(N, P, Ni, I):-
     \+ eleve(N, P, Ni, I),
+    \+ eleve(_, _, _, I),
     assert(eleve(N, P, Ni, I)).
 
 del_eleve(N, P, Ni, I):-
@@ -30,6 +32,7 @@ del_eleve(N, P, Ni, I):-
 
 add_salle(N, C, T, I):-
     \+ salle(N, C, T, I),
+    \+ salle(_, _, _, I),
     assert(salle(N, C, T, I)).
 
 del_salle(N, C, T, I):-
@@ -38,6 +41,7 @@ del_salle(N, C, T, I):-
 
 add_groupe(N, Ni, L, I):-
     \+ groupe(N, Ni, L, I),
+    \+ groupe(_, _, _, I),
     assert(groupe(N, Ni, L, I)).
 
 del_groupe(N, Ni, L, I):-
@@ -46,6 +50,7 @@ del_groupe(N, Ni, L, I):-
 
 add_seance(M, P, G, S, C, I):-
     \+ seance(M, P, G, S, C, I),
+    \+ seance(_, _, _, _, _, I),
     assert(seance(M, P, G, S, C, I)).
 
 del_seance(M, P, G, S, C, I):-
