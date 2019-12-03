@@ -1,0 +1,15 @@
+add_professeur("Baudelet","Conrad","Prolog",1).
+add_eleve("Baudelet","Conrad","SuperFort",2).
+add_eleve("Le Feyer","Aymeric","SuperFort",3).
+add_eleve("Rocq","Thomas","SuperFort",4).
+add_eleve("Loiseau","Gabriel","SuperFort",5).
+add_groupe("L3","fort",[],6).
+add_salle("E212",3,"ohlala",7).
+add_seance("Prolog",1,6,7,"c14",8).
+add_seance("Prog",1,6,7,"c14",9).
+ajouter_eleve_groupe(2, 6).
+ajouter_eleve_groupe(3, 6).
+
+
+
+

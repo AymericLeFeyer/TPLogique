@@ -4,13 +4,11 @@
 :-dynamic groupe/4.
 :-dynamic seance/6.
 
-
 professeur(nom, prenom, discipline, identifiant).
 eleve(nom, prenom, niveau, identifiant).
 salle(nom, capacite, type, identifiant).
 groupe(nom, niveau, liste-eleves, identifiant).
 seance(matiere, prof, groupe, salle, creneau, identifiant).
-
 
 add_professeur(N, P, D, I):-
     \+ professeur(N, P, D, I),
@@ -61,12 +59,38 @@ ajouter_eleve_groupe(E, G):-
     eleve(N, P, Ni, E),
     groupe(NG, NiG, LG, G),
     del_groupe(NG, NiG, LG, G),
-    append(LG, eleve(N, P, Ni, E), LG2),
+    append(LG, [eleve(N, P, Ni, E)], LG2),
     add_groupe(NG, NiG, LG2, G).
 
 get_groupe(I):-
     groupe(N, Ni, L, I),
     write(groupe(N, Ni, L, I)).
+
+nb_eleves(G, X):-
+    groupe(_, _, L, G),
+    length(L, X).
+
+problemeCapacite(G, _):-
+    seance(_, _, G, S, _, I),
+    salle(_, C, _, S),
+    nb_eleves(G, N),
+    N >= C,
+    write(I).
+
+listeSeanceProfesseur(P):-
+    listing(seance(_,P,_,_,_,_)).
+
+listeSeanceEleve(G):-
+    listing(seance(_,_,G,_,_,_)).
+
+listeSeanceSalle(S):-
+    listing(salle(_,_,_,S,_,_)).
+
+listeSeanceEleve(E):-
+    groupe(_, _, L, _),
+
+
+
 
 
 
