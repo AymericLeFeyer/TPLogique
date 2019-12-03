@@ -57,13 +57,16 @@ del_seance(M, P, G, S, C, I):-
     seance(M, P, G, S, C, I),
     retract(seance(M, P, G, S, C, I)).
 
-join_eleve_groupe(E, G):-
-    E c un id {eleve}
-    G c un id aussi {groupe}
+ajouter_eleve_groupe(E, G):-
+    eleve(N, P, Ni, E),
+    groupe(NG, NiG, LG, G),
+    del_groupe(NG, NiG, LG, G),
+    append(LG, eleve(N, P, Ni, E), LG2),
+    add_groupe(NG, NiG, LG2, G).
 
-
-
-
+get_groupe(I):-
+    groupe(N, Ni, L, I),
+    write(groupe(N, Ni, L, I)).
 
 
 

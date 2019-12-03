@@ -57,8 +57,12 @@ del_seance(M, P, G, S, C, I):-
     seance(M, P, G, S, C, I),
     retract(seance(M, P, G, S, C, I)).
 
+ajouter_eleve_groupe(_, (_, _, L, _)):-
+    write(L).
 
-
+get_groupe(I):-
+    groupe(N, Ni, L, I),
+    write(groupe(N, Ni, L, I)).
 
 
 
