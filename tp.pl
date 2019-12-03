@@ -80,14 +80,66 @@ problemeCapacite(G, _):-
 listeSeanceProfesseur(P):-
     listing(seance(_,P,_,_,_,_)).
 
-listeSeanceEleve(G):-
+listeSeanceGroupe(G):-
     listing(seance(_,_,G,_,_,_)).
 
 listeSeanceSalle(S):-
     listing(salle(_,_,_,S,_,_)).
 
-listeSeanceEleve(E):-
-    groupe(_, _, L, _),
+jour(c11, "Lundi").
+jour(c12, "Lundi").
+jour(c13, "Lundi").
+jour(c14, "Lundi").
+jour(c21, "Mardi").
+jour(c22, "Mardi").
+jour(c23, "Mardi").
+jour(c24, "Mardi").
+jour(c31, "Mercredi").
+jour(c32, "Mecredi").
+jour(c33, "Mecredi").
+jour(c34, "Mercredi").
+jour(c41, "Jeudi").
+jour(c42, "Jeudi").
+jour(c43, "Jeudi").
+jour(c44, "Jeudi").
+jour(c51, "Vendredi").
+jour(c52, "Vendredi").
+jour(c53, "Vendredi").
+jour(c54, "Vendredi").
+jour(c61, "Samedi").
+jour(c62, "Samedi").
+jour(c63, "Samedi").
+jour(c64, "Samedi").
+
+creneau(c11, "8h-10h").
+creneau(c12, "10h-12h").
+creneau(c13, "14h-16h").
+creneau(c14, "16h-18h").
+creneau(c21, "8h-10h").
+creneau(c22, "10h-12h").
+creneau(c23, "14h-16h").
+creneau(c24, "16h-18h").
+creneau(c31, "8h-10h").
+creneau(c32, "10h-12h").
+creneau(c33, "14h-16h").
+creneau(c34, "16h-18h").
+creneau(c41, "8h-10h").
+creneau(c42, "10h-12h").
+creneau(c43, "14h-16h").
+creneau(c44, "16h-18h").
+creneau(c51, "8h-10h").
+creneau(c52, "10h-12h").
+creneau(c53, "14h-16h").
+creneau(c54, "16h-18h").
+creneau(c61, "8h-10h").
+creneau(c62, "10h-12h").
+creneau(c63, "14h-16h").
+creneau(c64, "16h-18h").
+
+creneauFinal(A, X, Y):-
+    jour(A,X),
+    creneau(A,Y).
+
 
 
 
