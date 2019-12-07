@@ -103,8 +103,6 @@ listeSeanceSalle(S):-
     listing(salle(_,_,_,S,_,_)).
 
 
-
-
 jour(c11, "Lundi").
 jour(c12, "Lundi").
 jour(c13, "Lundi").
@@ -181,8 +179,34 @@ conflit():-
 	C1 = C2,
 	format('Conflit: Salle ~d, Creneau ~w', [S1, C1]).
 
+edt_prof(P):-
+	professeur(N, Pr, _, P),
+	format('~w ~w', [N, Pr]),
+	afficher_seances_prof(P).
 
+afficher_seances_prof(P):-
+	seance(M, P, G, S, C, _),
+	jour(C, Day),
+	creneau(C, Creneau),
+	salle(NSalle, _, _, S),
+	groupe(NGroupe, _, _, G),
+	matiere(NMatiere, _, _, _, M),
+	format('Seance de ~w a ~w, ~w, Salle ~w avec le groupe ~w', [Day, Creneau, NMatiere, NSalle, NGroupe]).
 
+edt_salle(S):-
+	salle(N, _, _, S),
+	writeln(N),
+	afficher_seances_salle(S).
+
+afficher_seances_salle(S):-
+	seance(M, P, G, S, C, I),
+	jour(C, Day),
+	creneau(C, Creneau),
+	groupe(NomGroupe, _, _, G),
+	professeur(NomProf, PrenomProf, _, P),
+	matiere(NomMatiere, _, _, _, M),
+	format('Seance de ~w a ~w, ~w avec le groupe ~w, par ~w ~w', [Day, Creneau, NomMatiere, NomGroupe, NomProf, PrenomProf]).
+	
 
 
 
