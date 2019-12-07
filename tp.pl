@@ -73,9 +73,17 @@ ajouter_eleve_groupe(E, G):-
     append(LG, [eleve(N, P, Ni, E)], LG2),
     add_groupe(NG, NiG, LG2, G).
 
-get_groupe(I):-
-    groupe(N, Ni, L, I),
-    write(groupe(N, Ni, L, I)).
+get_all_eleves_from_groupe(I, E):-
+    groupe(_, _, E, I).
+
+get_eleve_from_groupe(G, E):-
+	get_all_eleves_from_groupe(G, [E|T]),
+	get_eleve_from_groupe([T], E).
+
+get_eleve_from_groupe([], 0).
+	
+
+
 
 nb_eleves(G, X):-
     groupe(_, _, L, G),
@@ -96,6 +104,9 @@ listeSeanceGroupe(G):-
 
 listeSeanceSalle(S):-
     listing(salle(_,_,_,S,_,_)).
+
+
+
 
 jour(c11, "Lundi").
 jour(c12, "Lundi").
@@ -150,6 +161,10 @@ creneau(c64, "16h-18h").
 creneauFinal(A, X, Y):-
     jour(A,X),
     creneau(A,Y).
+
+
+
+
 
 
 

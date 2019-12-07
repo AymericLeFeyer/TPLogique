@@ -5,10 +5,10 @@ add_professeur("Ridet","Jerome","Reseaux",3).
 add_matiere("Data", "Bdd", "type 1", 1, 1).
 add_matiere("Data2", "Bdd", "type 1", 1, 2).
 
-add_eleve("Baudelet","Conrad","SuperFort",1).
-add_eleve("Le Feyer","Aymeric","SuperFort",2).
-add_eleve("Rocq","Thomas","SuperFort",3).
-add_eleve("Loiseau","Gabriel","SuperFort",4).
+add_eleve("Baudelet","Conrad","Super",1).
+add_eleve("Le Feyer","Aymeric","Super",2).
+add_eleve("Rocq","Thomas","Super",3).
+add_eleve("Loiseau","Gabriel","Super",4).
 
 add_groupe("L3","fort",[],1).
 add_groupe("L3bis", "moyen", [], 2).
