@@ -199,20 +199,25 @@ edt_salle(S):-
 	afficher_seances_salle(S).
 
 afficher_seances_salle(S):-
-	seance(M, P, G, S, C, I),
+	seance(M, P, G, S, C, _),
 	jour(C, Day),
 	creneau(C, Creneau),
 	groupe(NomGroupe, _, _, G),
 	professeur(NomProf, PrenomProf, _, P),
 	matiere(NomMatiere, _, _, _, M),
 	format('Seance de ~w a ~w, ~w avec le groupe ~w, par ~w ~w', [Day, Creneau, NomMatiere, NomGroupe, NomProf, PrenomProf]).
-	
 
 
+charge_professeur(P):-
+	aggregate_all(count, seance(_, P, _, _, _, _), Count),
+	professeur(Nom, _, _, P),
+	C is 2*Count,
+	format('Charge du professeur ~w : ~dh', [Nom, C]).
 
-
-
-
-
+charge_salle(S):-
+	aggregate_all(count, seance(_, _, _, S, _, _), Count),
+	salle(Nom, _, _, S),
+	C is 2*Count,
+	format('Charge de la salle ~w : ~dh', [Nom,C]).
 
 
