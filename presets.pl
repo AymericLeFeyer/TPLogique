@@ -19,7 +19,7 @@ add_salle("E1",1,"type 1",3).
 add_salle("E2",2,"type 2",4).
 
 add_seance(1, 2, 1, 1, "c14", 1).
-add_seance(1, 2, 2, 3, "c14", 2).
+add_seance(1, 2, 2, 3, "c15", 2).
 
 ajouter_eleve_groupe(1, 1).
 ajouter_eleve_groupe(2, 1).

@@ -82,9 +82,6 @@ get_eleve_from_groupe(G, E):-
 
 get_eleve_from_groupe([], 0).
 	
-
-
-
 nb_eleves(G, X):-
     groupe(_, _, L, G),
     length(L, X).
@@ -161,6 +158,28 @@ creneau(c64, "16h-18h").
 creneauFinal(A, X, Y):-
     jour(A,X),
     creneau(A,Y).
+
+conflit():-
+	seance(_, P1, _, _, C1, I1),
+	seance(_, P2, _, _, C2, I2),
+	I1 \= I2,
+	P1 = P2,
+	C1 = C2,
+	format('Conflit: Prof ~d, Creneau ~w', [P1, C1]).
+conflit():-
+	seance(_, _, G1, _, C1, I1),
+	seance(_, _, G2, _, C2, I2),
+	I1 \= I2,
+	G1 = G2,
+	C1 = C2,
+	format('Conflit: Groupe ~d, Creneau ~w', [G1, C1]).
+conflit():-
+	seance(_, _, _, S1, C1, I1),
+	seance(_, _, _, S2, C2, I2),
+	I1 \= I2,
+	S1 = S2,
+	C1 = C2,
+	format('Conflit: Salle ~d, Creneau ~w', [S1, C1]).
 
 
 
