@@ -3,12 +3,14 @@
 :-dynamic salle/4.
 :-dynamic groupe/4.
 :-dynamic seance/6.
+:-dynamic matiere/5.
 
 professeur(nom, prenom, discipline, identifiant).
 eleve(nom, prenom, niveau, identifiant).
 salle(nom, capacite, type, identifiant).
 groupe(nom, niveau, liste-eleves, identifiant).
 seance(matiere, prof, groupe, salle, creneau, identifiant).
+matiere(nom, discipline, type, niveau, identifiant).
 
 add_professeur(N, P, D, I):-
     \+ professeur(N, P, D, I),
@@ -55,6 +57,15 @@ del_seance(M, P, G, S, C, I):-
     seance(M, P, G, S, C, I),
     retract(seance(M, P, G, S, C, I)).
 
+add_matiere(N, D, T, Ni, I):-
+    \+ matiere(N, D, T, Ni, I),
+    \+ matiere(_, _, _, _, I),
+    assert(matiere(N, D, T, Ni, I)).
+
+del_matiere(N, D, T, Ni, I):-
+    matiere(N, D, T, Ni, I),
+    retract(matiere(N, D, T, Ni, I)).    
+
 ajouter_eleve_groupe(E, G):-
     eleve(N, P, Ni, E),
     groupe(NG, NiG, LG, G),
@@ -70,12 +81,12 @@ nb_eleves(G, X):-
     groupe(_, _, L, G),
     length(L, X).
 
-problemeCapacite(G, _):-
+problemeCapacite():-
     seance(_, _, G, S, _, I),
     salle(_, C, _, S),
-    nb_eleves(G, N),
-    N >= C,
-    write(I).
+    nb_eleves(G, X),
+    C < X,
+    format('Seance ~d : NbEleves = ~d et NbPlaces = ~d', [I, X, C]).
 
 listeSeanceProfesseur(P):-
     listing(seance(_,P,_,_,_,_)).
