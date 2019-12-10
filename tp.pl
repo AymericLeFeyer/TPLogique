@@ -257,6 +257,13 @@ charge_salle(S):-
 	C is 2*Count,
 	format('Charge de la salle ~w : ~dh', [Nom,C]).
 
+charge_eleve(E):-
+	get_id_groupe_eleve(E, G),
+	aggregate_all(count, seance(_, _, G, _, _, _), Count),
+	eleve(Nom, Prenom, _, E),
+	C is 2*Count,
+	format('Charge de ~w ~w : ~dh', [Nom, Prenom, C]).
+
 
 
 
