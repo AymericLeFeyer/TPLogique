@@ -67,21 +67,21 @@ del_matiere(N, D, T, Ni, I):-
     retract(matiere(N, D, T, Ni, I)).    
 
 ajouter_eleve_groupe(E, G):-
-    eleve(N, P, Ni, E),
+    eleve(_, _, _, E),
     groupe(NG, NiG, LG, G),
     del_groupe(NG, NiG, LG, G),
-    append(LG, [eleve(N, P, Ni, E)], LG2),
+    append(LG, [E], LG2),
     add_groupe(NG, NiG, LG2, G).
 
-get_all_eleves_from_groupe(I, E):-
-    groupe(_, _, E, I).
+get_id_groupe_eleve(Eleve, IdGroupe):-
+	groupe(_, _, Liste, IdGroupe),
+	eleve(_, _, _, Eleve),
+	member(Eleve, Liste).
 
-get_eleve_from_groupe(G, E):-
-	get_all_eleves_from_groupe(G, [E|T]),
-	get_eleve_from_groupe([T], E).
-
-get_eleve_from_groupe([], 0).
 	
+member(X, [X|_]).
+member(X, [_|Xs]) :- member(X, Xs).	
+
 nb_eleves(G, X):-
     groupe(_, _, L, G),
     length(L, X).
@@ -100,7 +100,11 @@ listeSeanceGroupe(G):-
     listing(seance(_,_,G,_,_,_)).
 
 listeSeanceSalle(S):-
-    listing(salle(_,_,_,S,_,_)).
+    listing(seance(_,_,_,S,_,_)).
+
+listeSeanceEleve(E):-
+	get_id_groupe_eleve(E, I),
+	listing(seance(_, _, I, _, _, _)).
 
 
 jour(c11, "Lundi").
@@ -219,5 +223,7 @@ charge_salle(S):-
 	salle(Nom, _, _, S),
 	C is 2*Count,
 	format('Charge de la salle ~w : ~dh', [Nom,C]).
+
+
 
 
