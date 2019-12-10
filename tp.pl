@@ -5,12 +5,16 @@
 :-dynamic seance/6.
 :-dynamic matiere/5.
 
+%Structures 
+
 professeur(nom, prenom, discipline, identifiant).
 eleve(nom, prenom, niveau, identifiant).
 salle(nom, capacite, type, identifiant).
 groupe(nom, niveau, liste-eleves, identifiant).
 seance(matiere, prof, groupe, salle, creneau, identifiant).
 matiere(nom, discipline, type, niveau, identifiant).
+
+% Question 1
 
 add_professeur(N, P, D, I):-
     \+ professeur(N, P, D, I),
@@ -66,6 +70,8 @@ del_matiere(N, D, T, Ni, I):-
     matiere(N, D, T, Ni, I),
     retract(matiere(N, D, T, Ni, I)).    
 
+% Question 2
+
 ajouter_eleve_groupe(E, G):-
     eleve(_, _, _, E),
     groupe(NG, NiG, LG, G),
@@ -73,18 +79,7 @@ ajouter_eleve_groupe(E, G):-
     append(LG, [E], LG2),
     add_groupe(NG, NiG, LG2, G).
 
-get_id_groupe_eleve(Eleve, IdGroupe):-
-	groupe(_, _, Liste, IdGroupe),
-	eleve(_, _, _, Eleve),
-	member(Eleve, Liste).
-
-	
-member(X, [X|_]).
-member(X, [_|Xs]) :- member(X, Xs).	
-
-nb_eleves(G, X):-
-    groupe(_, _, L, G),
-    length(L, X).
+% Question 3
 
 problemeCapacite():-
     seance(_, _, G, S, _, I),
@@ -92,6 +87,8 @@ problemeCapacite():-
     nb_eleves(G, X),
     C < X,
     format('Seance ~d : NbEleves = ~d et NbPlaces = ~d', [I, X, C]).
+
+% Question 4
 
 listeSeanceProfesseur(P):-
     listing(seance(_,P,_,_,_,_)).
@@ -106,6 +103,20 @@ listeSeanceEleve(E):-
 	get_id_groupe_eleve(E, I),
 	listing(seance(_, _, I, _, _, _)).
 
+get_id_groupe_eleve(Eleve, IdGroupe):-
+	groupe(_, _, Liste, IdGroupe),
+	eleve(_, _, _, Eleve),
+	member(Eleve, Liste).
+
+	
+member(X, [X|_]).
+member(X, [_|Xs]) :- member(X, Xs).	
+
+nb_eleves(G, X):-
+    groupe(_, _, L, G),
+    length(L, X).
+
+% Question 5
 
 jour(c11, "Lundi").
 jour(c12, "Lundi").
@@ -131,6 +142,8 @@ jour(c61, "Samedi").
 jour(c62, "Samedi").
 jour(c63, "Samedi").
 jour(c64, "Samedi").
+
+% Question 6
 
 creneau(c11, "8h-10h").
 creneau(c12, "10h-12h").
@@ -161,6 +174,8 @@ creneauFinal(A, X, Y):-
     jour(A,X),
     creneau(A,Y).
 
+% Question 7
+
 conflit():-
 	seance(_, P1, _, _, C1, I1),
 	seance(_, P2, _, _, C2, I2),
@@ -182,6 +197,8 @@ conflit():-
 	S1 = S2,
 	C1 = C2,
 	format('Conflit: Salle ~d, Creneau ~w', [S1, C1]).
+
+% Question 8
 
 edt_prof(P):-
 	professeur(N, Pr, _, P),
@@ -211,6 +228,22 @@ afficher_seances_salle(S):-
 	matiere(NomMatiere, _, _, _, M),
 	format('Seance de ~w a ~w, ~w avec le groupe ~w, par ~w ~w', [Day, Creneau, NomMatiere, NomGroupe, NomProf, PrenomProf]).
 
+edt_eleve(E):-
+	eleve(Nom, Prenom, _, E),
+	format('~w ~w\n', [Nom, Prenom]),
+	afficher_seances_eleve(E).
+
+afficher_seances_eleve(E):-
+	get_id_groupe_eleve(E, G),
+	seance(M, P, G, S, C, _),
+	jour(C, Day),
+	salle(NomSalle, _, _, S),
+	creneau(C, Creneau),
+	professeur(NomProf, PrenomProf, _, P),
+	matiere(NomMatiere, _, _, _, M),
+	format('Seance de ~w a ~w, ~w dans la salle ~w, par ~w ~w', [Day, Creneau, NomMatiere, NomSalle, NomProf, PrenomProf]).
+
+% Question 9
 
 charge_professeur(P):-
 	aggregate_all(count, seance(_, P, _, _, _, _), Count),
