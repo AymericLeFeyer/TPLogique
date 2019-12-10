@@ -14,7 +14,7 @@ salle(nom, capacite, type, identifiant).
 groupe(nom, niveau, liste-eleves, identifiant).
 seance(matiere, prof, groupe, salle, creneau, identifiant).
 matiere(nom, discipline, type, niveau, identifiant).
-classe(nom, niveau, groupe, liste-professeurs, liste-matieres, liste-seances, identifiants).
+classe(nom, niveau, groupe, liste-professeurs, liste-matieres, liste-seances, identifiant).
 
 % Question 1
 
@@ -279,4 +279,29 @@ del_classe(Nom, Niveau, Groupe, LP, LM, LS, I):-
 
 % Question 11
 
+verif_classe(Classe):-
+	classe(_, _, _, _, LM, LS, Classe),
+	seances_to_matieres(LS, A),
+	verif_seances(A, LM).
 
+verif_seances(_, []).
+verif_seances(A, [H|T]):-
+	seance(Matiere, _, _, _, _, H),
+	writeln(H),
+	count(A, Matiere, X),
+	X >= 2,
+	verif_seances(A, T).
+
+
+seance_to_matiere(S, M):-
+	seance(M, _, _, _, _, S).
+
+seances_to_matieres([], []).
+seances_to_matieres([LSH|LST], [LMH|LMT]):-
+	seance_to_matiere(LSH, LMH),
+	seances_to_matieres(LST, LMT).
+
+	
+count([],X,0).
+count([X|T],X,Y):- count(T,X,Z), Y is 1+Z.
+count([X1|T],X,Z):- X1\=X,count(T,X,Z).
