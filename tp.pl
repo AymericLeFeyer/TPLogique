@@ -4,6 +4,7 @@
 :-dynamic groupe/4.
 :-dynamic seance/6.
 :-dynamic matiere/5.
+:-dynamic classe/7.
 
 %Structures 
 
@@ -13,6 +14,7 @@ salle(nom, capacite, type, identifiant).
 groupe(nom, niveau, liste-eleves, identifiant).
 seance(matiere, prof, groupe, salle, creneau, identifiant).
 matiere(nom, discipline, type, niveau, identifiant).
+classe(nom, niveau, groupe, liste-professeurs, liste-matieres, liste-seances, identifiants).
 
 % Question 1
 
@@ -264,6 +266,17 @@ charge_eleve(E):-
 	C is 2*Count,
 	format('Charge de ~w ~w : ~dh', [Nom, Prenom, C]).
 
+% Question 10
 
+add_classe(Nom, Niveau, Groupe, LP, LM, LS, I):-
+    \+ classe(Nom, Niveau, Groupe, LP, LM, LS, I),
+    \+ classe(_, _, _, _, _, _ I),
+    assert(classe(Nom, Niveau, Groupe, LP, LM, LS, I)).
+
+del_classe(Nom, Niveau, Groupe, LP, LM, LS, I):-
+    classe(Nom, Niveau, Groupe, LP, LM, LS, I),
+    retract(classe(Nom, Niveau, Groupe, LP, LM, LS, I)).
+
+% Question 11
 
 
