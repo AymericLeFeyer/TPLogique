@@ -320,4 +320,41 @@ save_to_file(File) :-
    with_output_to(Stream, listing),
    close(Stream).
 
+% Cavaliers
+
+% Tableau de N*N elements, si on passe par une case, +1
+% Si une case est a 2, probleme
+
+verification([]).
+verification([H|T]):-
+	H < 2,
+	verification(T).
+
+% Si toutes les cases sont a 1, fini	
+conditionFin([]).
+conditionFin([H|T]):-
+	H = 1,
+	verification(T).
+
+% Generation tableau, resultat en 2e parametre
+genererTableau(N, T):-
+	A is N*N,
+	genererTableau2(A, T).
+
+genererTableau2(0, []).
+genererTableau2(N, [H|T]):-
+	H is 0,
+	B is N-1,
+	genererTableau2(B, T).
+
+afficherEchequier([H|T], N):-
+	
+
+	
+
+
+
+
+
+
 
