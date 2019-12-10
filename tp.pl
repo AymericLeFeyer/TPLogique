@@ -270,7 +270,7 @@ charge_eleve(E):-
 
 add_classe(Nom, Niveau, Groupe, LP, LM, LS, I):-
     \+ classe(Nom, Niveau, Groupe, LP, LM, LS, I),
-    \+ classe(_, _, _, _, _, _ I),
+    \+ classe(_, _, _, _, _, _,I),
     assert(classe(Nom, Niveau, Groupe, LP, LM, LS, I)).
 
 del_classe(Nom, Niveau, Groupe, LP, LM, LS, I):-
