@@ -313,4 +313,11 @@ all_good():-
 	\+ problemeCapacite(),
 	writeln("Tout va bien dans cet incroyable college").
 
+% Question 13
+
+save_to_file(File) :-
+   open(File,write,Stream),
+   with_output_to(Stream, listing),
+   close(Stream).
+
 
