@@ -17,11 +17,12 @@ add_salle("E3",3,"type 1",1).
 add_salle("E4",4,"type 1",2).
 add_salle("E1",1,"type 1",3).
 add_salle("E2",2,"type 2",4).
+add_salle("E100", 100, "amphi", 5).
 
-add_seance(1, 2, 1, 1, c14, 1).
-add_seance(1, 2, 2, 3, c21, 2).
-add_seance(2, 3, 2, 1, c34, 3).
-add_seance(2, 3, 1, 3, c43, 4).
+add_seance(1, 2, 1, 5, c14, 1).
+add_seance(1, 2, 2, 5, c21, 2).
+add_seance(2, 3, 2, 5, c34, 3).
+add_seance(2, 3, 1, 5, c43, 4).
 
 ajouter_eleve_groupe(1, 1).
 ajouter_eleve_groupe(2, 1).

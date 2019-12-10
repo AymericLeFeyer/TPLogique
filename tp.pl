@@ -287,7 +287,7 @@ verif_classe(Classe):-
 verif_seances(_, []).
 verif_seances(A, [H|T]):-
 	seance(Matiere, _, _, _, _, H),
-	writeln(H),
+	Matiere >= 0,
 	count(A, Matiere, X),
 	X >= 2,
 	verif_seances(A, T).
@@ -301,7 +301,16 @@ seances_to_matieres([LSH|LST], [LMH|LMT]):-
 	seance_to_matiere(LSH, LMH),
 	seances_to_matieres(LST, LMT).
 
-	
-count([],X,0).
-count([X|T],X,Y):- count(T,X,Z), Y is 1+Z.
-count([X1|T],X,Z):- X1\=X,count(T,X,Z).
+count(L, E, N) :-
+    include(=(E), L, L2), length(L2, N).
+
+% Question 12
+
+all_good():-
+	classe(_, _, _, _, _, _, Classe),
+	verif_classe(Classe),
+	\+ conflit(),
+	\+ problemeCapacite(),
+	writeln("Tout va bien dans cet incroyable college").
+
+
