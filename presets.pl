@@ -1,4 +1,4 @@
-add_professeur("Mendiau","Rene","Complexite",1).
+add_professeur("Mandiau","Rene","Complexite",1).
 add_professeur("Lecomte","Sylvain","Bdd",2).
 add_professeur("Ridet","Jerome","Reseaux",3).
 
@@ -30,4 +30,3 @@ ajouter_eleve_groupe(3, 2).
 ajouter_eleve_groupe(4, 2).
 
 add_classe("Classe 1", 1, 1, [1], [1, 2], [1, 2, 3, 4], 1).
-

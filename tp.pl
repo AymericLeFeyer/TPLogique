@@ -6,7 +6,7 @@
 :-dynamic matiere/5.
 :-dynamic classe/7.
 
-%Structures 
+%Structures
 
 professeur(nom, prenom, discipline, identifiant).
 eleve(nom, prenom, niveau, identifiant).
@@ -19,7 +19,7 @@ classe(nom, niveau, groupe, liste-professeurs, liste-matieres, liste-seances, id
 % Question 1
 
 add_professeur(N, P, D, I):-
-    \+ professeur(N, P, D, I),
+    \+ professeur(N, P, D, _),
     \+ professeur(_, _, _, I),
     assert(professeur(N, P, D, I)).
 
@@ -28,7 +28,7 @@ del_professeur(N, P, D, I):-
     retract(professeur(N, P, D, I)).
 
 add_eleve(N, P, Ni, I):-
-    \+ eleve(N, P, Ni, I),
+    \+ eleve(N, P, Ni, _),
     \+ eleve(_, _, _, I),
     assert(eleve(N, P, Ni, I)).
 
@@ -37,7 +37,7 @@ del_eleve(N, P, Ni, I):-
     retract(eleve(N, P, Ni, I)).
 
 add_salle(N, C, T, I):-
-    \+ salle(N, C, T, I),
+    \+ salle(N, C, T, _),
     \+ salle(_, _, _, I),
     assert(salle(N, C, T, I)).
 
@@ -46,7 +46,7 @@ del_salle(N, C, T, I):-
     retract(salle(N, C, T, I)).
 
 add_groupe(N, Ni, L, I):-
-    \+ groupe(N, Ni, L, I),
+    \+ groupe(N, Ni, L, _),
     \+ groupe(_, _, _, I),
     assert(groupe(N, Ni, L, I)).
 
@@ -55,7 +55,7 @@ del_groupe(N, Ni, L, I):-
     retract(groupe(N, Ni, L, I)).
 
 add_seance(M, P, G, S, C, I):-
-    \+ seance(M, P, G, S, C, I),
+    \+ seance(M, P, G, S, C, _),
     \+ seance(_, _, _, _, _, I),
     assert(seance(M, P, G, S, C, I)).
 
@@ -64,13 +64,13 @@ del_seance(M, P, G, S, C, I):-
     retract(seance(M, P, G, S, C, I)).
 
 add_matiere(N, D, T, Ni, I):-
-    \+ matiere(N, D, T, Ni, I),
+    \+ matiere(N, D, T, Ni, _),
     \+ matiere(_, _, _, _, I),
     assert(matiere(N, D, T, Ni, I)).
 
 del_matiere(N, D, T, Ni, I):-
     matiere(N, D, T, Ni, I),
-    retract(matiere(N, D, T, Ni, I)).    
+    retract(matiere(N, D, T, Ni, I)).
 
 % Question 2
 
@@ -89,6 +89,10 @@ problemeCapacite():-
     nb_eleves(G, X),
     C < X,
     format('Seance ~d : NbEleves = ~d et NbPlaces = ~d', [I, X, C]).
+
+nb_eleves(G, X):-
+    groupe(_, _, L, G),
+    length(L, X).
 
 % Question 4
 
@@ -110,13 +114,9 @@ get_id_groupe_eleve(Eleve, IdGroupe):-
 	eleve(_, _, _, Eleve),
 	member(Eleve, Liste).
 
-	
-member(X, [X|_]).
-member(X, [_|Xs]) :- member(X, Xs).	
 
-nb_eleves(G, X):-
-    groupe(_, _, L, G),
-    length(L, X).
+member(X, [X|_]).
+member(X, [_|Xs]) :- member(X, Xs).
 
 % Question 5
 
@@ -330,7 +330,7 @@ verification([H|T]):-
 	H < 2,
 	verification(T).
 
-% Si toutes les cases sont a 1, fini	
+% Si toutes les cases sont a 1, fini
 conditionFin([]).
 conditionFin([H|T]):-
 	H = 1,
@@ -348,13 +348,3 @@ genererTableau2(N, [H|T]):-
 	genererTableau2(B, T).
 
 afficherEchequier([H|T], N):-
-	
-
-	
-
-
-
-
-
-
-
